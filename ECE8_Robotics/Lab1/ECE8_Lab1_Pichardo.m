@@ -1,5 +1,5 @@
 %% Lab 1: Exercises 1-3
-% by: Michelle Pichardo Munoz 
+% by: Michelle Pichardo Munoz
 
 % Best Practices 
 close all; % closes all open windows
@@ -37,7 +37,7 @@ u = [9 ; 38; 45];
 % Preform Operations 
 a1 = A*B + C;
 b1 = A*x + B*u; 
-c1 = (1/3)*A*(x + u);
+c1 = (1/3)*A*(x + u*2);
 
 
 %% Problem 2 (a-c) 
