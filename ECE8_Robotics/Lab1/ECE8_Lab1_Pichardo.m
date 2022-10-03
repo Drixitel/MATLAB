@@ -56,6 +56,97 @@ c1 = (1/3)*A*(x + u*2);
 
 % Notes: 
 %   - Plotting a line and 2 trig functions 
-%   - 
+%   - row vector notation: x = 0:1:5 = start: incriment: stop 
+
+% Define variables 
+
+% 2.a - Line
+xa = 0:2:100;
+ya = 0.1 * xa;
+
+% 2.b - sine
+xb = 0:0.1:2*pi;
+yb = sin(xb);
+
+% 2.c - cosine
+xc = 0:0.1:2*pi;
+yc = cos(xc);
+
+% Use subplots to create all 4 plots 
+
+% Plot 2.a
+subplot(2,2,1);
+plot(xa,ya,Color='b'); 
+title('y = 0.1 * x');
+legend('Line');
+
+% Plot 2.b
+subplot(2,2,2);
+plot(xb,yb, Color='r'); 
+title('y = sin(x)');
+legend('Sine');
+
+% Plot 2.c
+subplot(2,2,3);
+plot(xc,yc, Color=[0.8,0.5,0.2]); 
+title('y = cos(x)');
+legend('Cosine')
+
+% Plot of all functions 
+subplot(2,2,4);
+plot(xa,ya, xb,yb, xc,yc);
+title('Superposition of all functions');
+legend('Line', 'Sine', 'Cosine')
+
+% Notes: 
+%   - Subplot (# of grid rows, # ''columns, position of plot)
+%   - Plot(x,y) takes inputs and outputs then plots them 
+%       - to plot several we need only put them in pairs 
+%           - See: Plot of all functions
 
 %% Problem 3 (a-c) 
+
+% A car that is aware of its position and orientation in the plane (2D)
+%  Goal: reach a target point on the plane 
+%  uses: a wonky controller that under and overshoots its movements
+
+% Load in the variables from the .mat file
+load Lab1_Exercise3.mat 
+
+% Plot: 
+%   - Initial position: xv(1),yv(1) 
+%   - Position of the car: the entire path 
+%   - Target is present (x,y) = (2,0) 
+%   - Units: meters 
+%   - Use hold on and hold off to plot all together 
+
+x_target = 2; 
+y_target = 0;
+
+% Position
+plot(xv,yv, Color=[0.4940 0.1840 0.5560],LineWidth=2, LineStyle='-.')
+hold on
+
+% Target 
+plot(x_target,y_target,'s', MarkerSize=10, ...
+    Color=[0 0.4470 0.7410], MarkerFaceColor=[0 0.4470 0.7410])
+hold on
+
+% Inital Position
+plot(xv(1),yv(1), 's', MarkerSize=10, ...
+    Color=[0.6350 0.0780 0.1840], MarkerFaceColor=[0.6350 0.0780 0.1840])
+
+% Labels
+legend('Vehicle Position','Target Position','Initial Position')
+xlabel('Meters')
+ylabel('Meters')
+title('Car Trajectory on a Plane')
+
+hold off
+
+
+% I have no idea: 
+% Q: 
+%   - do we need to bring in the data to be unique in this .m file
+%   - or does load suffice 
+%   - the data we have do we have any info on it? is it in meters? 
