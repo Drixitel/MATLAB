@@ -76,27 +76,35 @@ yc = cos(xc);
 
 % Plot 2.a
 subplot(2,2,1);
-plot(xa,ya,Color='b'); 
-title('y = 0.1 * x');
+plot(xa,ya,Color='b', Marker='*'); 
+title('y = 0.1 * x; showing data points');
 legend('Line');
+xlabel('x');
+ylabel('y');
 
 % Plot 2.b
 subplot(2,2,2);
-plot(xb,yb, Color='r'); 
-title('y = sin(x)');
+plot(xb,yb, Color='r',Marker='*'); 
+title('y = sin(x); showing data points');
 legend('Sine');
+xlabel('x');
+ylabel('y');
 
 % Plot 2.c
 subplot(2,2,3);
 plot(xc,yc, Color=[0.8,0.5,0.2]); 
 title('y = cos(x)');
 legend('Cosine')
+xlabel('x');
+ylabel('y');
 
 % Plot of all functions 
 subplot(2,2,4);
 plot(xa,ya, xb,yb, xc,yc);
-title('Superposition of all functions');
+title('Superposition-Graph of all functions');
 legend('Line', 'Sine', 'Cosine')
+xlabel('x');
+ylabel('y');
 
 % Notes: 
 %   - Subplot (# of grid rows, # ''columns, position of plot)
@@ -109,6 +117,10 @@ legend('Line', 'Sine', 'Cosine')
 % A car that is aware of its position and orientation in the plane (2D)
 %  Goal: reach a target point on the plane 
 %  uses: a wonky controller that under and overshoots its movements
+
+% Code was not working without these lines to clear workspace
+close all; % closes all open windows
+clear all; % deletes the workspace
 
 % Load in the variables from the .mat file
 load Lab1_Exercise3.mat 
@@ -138,15 +150,12 @@ plot(xv(1),yv(1), 's', MarkerSize=10, ...
 
 % Labels
 legend('Vehicle Position','Target Position','Initial Position')
-xlabel('Meters')
-ylabel('Meters')
+xlabel('x (Meters)')
+ylabel('y (Meters)')
 title('Car Trajectory on a Plane')
 
 hold off
 
 
-% I have no idea: 
-% Q: 
-%   - do we need to bring in the data to be unique in this .m file
-%   - or does load suffice 
-%   - the data we have do we have any info on it? is it in meters? 
+
+
