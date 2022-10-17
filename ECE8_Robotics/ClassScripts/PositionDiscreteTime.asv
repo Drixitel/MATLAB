@@ -14,7 +14,6 @@ v_x0 = 1;
 v_x1 = 1;
 v_x2 = 1;
 
-
 % calculate p_x1--------------the following can be replaced with loop
 p_x1 = p_x0 + Delta * v_x0;
 
