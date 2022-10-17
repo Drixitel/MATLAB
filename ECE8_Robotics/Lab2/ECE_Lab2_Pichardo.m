@@ -221,26 +221,38 @@ xnew = zeros(size(p_x(:,1)));
 for i = 1:length(p_x(:,1))
     if p_x(i,1) >  xtarget - err && p_x(i,1) < xtarget + err
         xnew(i,1) = p_x(i,1);
+    else
+        xnew(i,1) = NaN;
     end
 end
-
-% plot(xnew(:,1),'-o')
-% hold on
-% plot(p_x(:,1))
-% hold off
+subplot(3,1,1)
+plot(xnew(:,1),'-o','DisplayName', 'Target x-Data')
+hold on
+plot(p_x(:,1),'DisplayName', 'x-Data')
+ylabel('X meters')
+xlabel('Incriments')
+title('X Position')
+legend('Location','bestoutside')
+hold off
 
 ynew = zeros(size(p_y(:,1)));
 
 for i = 1:length(p_x(:,1))
     if p_y(i,1) >  ytarget - err && p_y(i,1) < ytarget + err
         ynew(i,1) = p_y(i,1);
+    else
+        ynew(i,1) = NaN;
     end
 end
-
-% plot(ynew(:,1), '-o')
-% hold on
-% plot(p_y(:,1))
-% hold off
+subplot(3,1,2)
+plot(ynew(:,1), '-o','DisplayName', 'Target y-Data')
+hold on
+plot(p_y(:,1),'DisplayName', 'y-Data')
+ylabel('Y meters')
+xlabel('Incriments')
+title('Y Position')
+legend('Location','bestoutside')
+hold off
 
 znew = zeros(size(p_z(:,1)));
 
@@ -248,10 +260,16 @@ for i = 1:length(p_z(:,1))
     if p_z(i,1) >  ztarget - err && p_z(i,1) < ztarget + err
         znew(i,1) = p_z(i,1);
     else
-        znew(i,1) = [];
+        znew(i,1) = NaN;
     end
 end
 
-plot(znew(:,1),'-o')
+subplot(3,1,3)
+plot(znew(:,1),'-o', 'DisplayName', 'Target z-Data')
 hold on
-plot(p_z(:,1))
+plot(p_z(:,1),'DisplayName', 'z-Data')
+ylabel('Z meters')
+xlabel('Incriments')
+title('Z Position')
+legend('Location','bestoutside')
+hold off
