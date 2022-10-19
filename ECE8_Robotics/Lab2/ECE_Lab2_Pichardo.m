@@ -39,17 +39,28 @@ close all; % closes all open windows
 clear all; % deletes the workspace
 
 % Create a vector x = 0:0.1:2*pi 
-xtarget = 0:0.1:2*pi;                  % Domain of our functions 
+x = 0:0.1:2*pi;                  % Domain of our functions 
 
 % Using a for-loop, generate 10 different plots on the same figure
 %   where the curves are y1 = sin(x), y2 = sin(y1), y3 = sin(y2) ... 
 
+
 % Define the data matrix 
 %   matrix of row vecotors 
-data_matrix = [xtarget ; sin(xtarget)];
+data_matrix = [x ; sin(x)];
 
 % Define the end condition
-N = 10;
+%   since we already have the first graph data filed we need 9 more 
+N = 9;
+
+% Fill the matrix using a for-loop
+for i = 1:1:N
+    % Create the matrix holding all our data by incrimenting 
+    %   through the rows
+    data_matrix(i+2,:) = sin(data_matrix(i+1,:));
+end
+
+% Graph of all fuctions on the x-domain ------------------------------
 
 % Define the figure
 fig = figure();
@@ -59,30 +70,61 @@ ax = axes(fig);
 ax.LineStyleOrder = {'-o','-+','-*','-x','-s','-d','-v','->','-h','-^'};
 % hold on: retain the current axes and properties
 hold on
+% add a box about the figure
+box on
+% add a grid for fun
+grid on 
 
-% Start for loop 
-for i = 1:1:N
+% Start for-loop to plot we want 10, so N+1 = 9+1 =10 
+for i = 1:1:N+1
+    %Plot the data by also incrimenting through the rows 
+    plot(data_matrix(1,:),data_matrix(i+1,:), ...
+        'DisplayName', ['Line ', num2str(i)])
+end
 
-    % Create the matrix holding all our data by incrimenting 
-    %   through the rows
-    data_matrix(i+2,:) = sin(data_matrix(i+1,:));
+% add a legend outside of the main graph to reduce clutter
+legend('Location','bestoutside')
+% add a title
+title('Superposition of 10 Graphs V1')
 
+% hold off: reset any following plot to default properties
+hold off
+
+% I still think the wording of the problem needs to be adjusted:-------- 
+%   This is the graph such that I plot: 
+%   x vs y1, y1 vs y2, and so on 
+
+% Define the figure
+fig = figure();
+% Define the axes
+ax = axes(fig); 
+% Difine markers
+ax.LineStyleOrder = {'-o','-+','-*','-x','-s','-d','-v','->','-h','-^'};
+% hold on: retain the current axes and properties
+hold on
+% add a box about the figure
+box on
+% add a grid for fun
+grid on 
+
+% Start for-loop to plot we want 10, so N+1 = 9+1 =10 
+for i = 1:1:N+1
     %Plot the data by also incrimenting through the rows 
     plot(data_matrix(i,:),data_matrix(i+1,:), ...
         'DisplayName', ['Line ', num2str(i)])
 end
 
-% hold off: reset any following plot to default properties
-hold off
-
 % add a legend outside of the main graph to reduce clutter
 legend('Location','bestoutside')
 % add a title
-title('Superposition of 10 Graphs')
+title('Superposition of 10 Graphs V2 - not the soln')
 
+% hold off: reset any following plot to default properties
+hold off
 
-% Accidently made a loop for several subplots
-%       I didn't want to delete it
+%% Accident
+%       made a loop for several subplots
+%       I didn't want to delete it (saved for later)
 % data_matrix = [x ; sin(x)];
 % N = 10
 % for i = 1:1:N
@@ -141,7 +183,8 @@ while N > 1
     % Keep track of how many times the code is ran
     iterations = iterations + 1;
 end 
-
+fprintf('Number of iterations= %.f\n', iterations)
+fprintf('Final value of N from 1000 = %.4f\n', N)
 % check the Workspace for the resulting values 
 
 %% Escercise 5
@@ -206,18 +249,19 @@ clear all; % deletes the workspace
 
 % Load in the variables from the .mat file
 load Lab2_Exercise6.mat 
-clc
 
+% Set target parameters
 xtarget = 0;
 ytarget = 0;
 ztarget = 0.7;
 
+% Set the allowed error range 
 err = 0.2;
 
-
-
+% Create a vector to store data 
 xnew = zeros(size(p_x(:,1)));
 
+% Use a for-loop
 for i = 1:length(p_x(:,1))
     if p_x(i,1) >  xtarget - err && p_x(i,1) < xtarget + err
         xnew(i,1) = p_x(i,1);
@@ -273,3 +317,8 @@ xlabel('Incriments')
 title('Z Position')
 legend('Location','bestoutside')
 hold off
+
+
+% hold on
+% box on 
+% grid on 
