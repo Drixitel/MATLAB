@@ -11,8 +11,7 @@ N = 100;
 % 1) define the initial condition (position)
 px0 = 1;
 py0 = 0;
-pxd = 1.6;
-pyd = 0.5;
+
 % 2) define the input (velocity)
 % vx defined as a constant equal to 1
 % vx = ones(1,N); 
@@ -34,7 +33,7 @@ pyd = 0.5;
 % vx defined as a step signal that is equal to 1 up to (and including) k =
 % 49, and after that is equal to 0 but until 70, and after that is back to
 % 1
-k(1) = 0;
+k = 0;
 for i = 1:N
     if (i < 50) || (i > 70) % condition for if would be true if i < 50 OR (which is coded as ||) i > 70
         vx(i) = 1;
