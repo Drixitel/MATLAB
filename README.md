@@ -1,3 +1,3 @@
 # Files for MATLAB Projects
 
-- notes are found in a differnt repo
+- See files for labs and published pdf files
