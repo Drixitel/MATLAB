@@ -277,7 +277,8 @@ for i = 1:length(p_x(:,1))
     end
 end
 figure(1)
-subplot(3,1,3) %--------------------------------------------
+hold on
+% subplot(3,1,3) %--------------------------------------------
 plot(xnew(:,1),'-o','DisplayName', 'Accepted x-Data')
 ylabel('X meters')
 xlabel('Incriments')
@@ -285,7 +286,7 @@ title('X Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,2) %--------------------------------------------
+% subplot(3,1,2) %--------------------------------------------
 plot(p_x(:,1),'DisplayName', 'Given x-Data')
 ylabel('X meters')
 xlabel('Incriments')
@@ -293,7 +294,7 @@ title('X Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,1) %--------------------------------------------
+% subplot(3,1,1) %--------------------------------------------
 plot(xtarget*ones(length(p_x),1), 'DisplayName','Target x-Location')
 %   Note: created a vector of length p_x composed of 1's 
 %           multipied it by the constant xtarget to get a vector 
@@ -320,7 +321,8 @@ for i = 1:length(p_x(:,1))
 end
 
 figure(2)
-subplot(3,1,3) %--------------------------------------------
+hold on
+% subplot(3,1,3) %--------------------------------------------
 plot(ynew(:,1), '-o','DisplayName', 'Accepted y-Data')
 ylabel('Y meters')
 xlabel('Incriments')
@@ -328,7 +330,7 @@ title('Y Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,2) %--------------------------------------------
+% subplot(3,1,2) %--------------------------------------------
 plot(p_y(:,1),'DisplayName', 'Given y-Data')
 ylabel('Y meters')
 xlabel('Incriments')
@@ -336,7 +338,7 @@ title('Y Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,1) %--------------------------------------------
+% subplot(3,1,1) %--------------------------------------------
 plot(ytarget*ones(length(p_y),1), 'DisplayName','Target y-Location')
 ylabel('Y meters')
 xlabel('Incriments')
@@ -362,7 +364,8 @@ end
 
 
 figure(3)
-subplot(3,1,3) %--------------------------------------------
+hold on
+% subplot(3,1,3) %--------------------------------------------
 plot(znew(:,1),'-o', 'DisplayName', 'Accepted z-Data')
 ylabel('Z meters')
 xlabel('Incriments')
@@ -370,15 +373,15 @@ title('Z Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,2) %--------------------------------------------
-plot(p_y(:,1),'DisplayName', 'Given z-Data')
+% subplot(3,1,2) %--------------------------------------------
+plot(p_z(:,1),'DisplayName', 'Given z-Data')
 ylabel('Z meters')
 xlabel('Incriments')
 title('Z Position')
 legend('Location','bestoutside')
 grid on 
 box on 
-subplot(3,1,1) %--------------------------------------------
+% subplot(3,1,1) %--------------------------------------------
 plot(ztarget*ones(length(p_z),1), 'DisplayName','Target z-Location')
 ylabel('Z meters')
 xlabel('Incriments')
@@ -391,19 +394,35 @@ hold off
 % ----------------------------------------- 6 d ----------------------
 % I don't understand what this wants, and I won't assume 3D graphing
 figure(4)
-hold on
-grid on
-box on
+subplot(3,1,1)
 plot(xnew(:,1),'-o','DisplayName', 'Accepted x-Data')
-plot(ynew(:,1), '-o','DisplayName', 'Accepted y-Data')
-plot(znew(:,1),'-o', 'DisplayName', 'Accepted z-Data')
-plot(xtarget*ones(length(p_x),1), 'DisplayName','Target x,y-Location', ...
-    'LineWidth',3)
-plot(ztarget*ones(length(p_z),1), 'DisplayName','Target z-Location', ...
-    'LineWidth',3)
-legend('Location','bestoutside')
+hold on
+plot(xtarget*ones(length(p_x),1), 'DisplayName','Target x-Location')
+ylabel('X meters')
 xlabel('Incriments')
-ylabel('meters')
-title('X,Y, & Z Accepted Data')
+title('X Position')
+legend('Location','bestoutside')
+grid on 
+box on 
+subplot(3,1,2)
+plot(ynew(:,1), '-o','DisplayName', 'Accepted y-Data')
+hold on
+plot(ytarget*ones(length(p_y),1), 'DisplayName','Target y-Location')
+ylabel('Y meters')
+xlabel('Incriments')
+title('Y Position')
+legend('Location','bestoutside')
+grid on 
+box on 
+subplot(3,1,3)
+plot(znew(:,1),'-o', 'DisplayName', 'Accepted z-Data')
+hold on
+plot(ztarget*ones(length(p_z),1), 'DisplayName','Target z-Location')
+ylabel('Z meters')
+xlabel('Incriments')
+title('Z Position')
+legend('Location','bestoutside')
+grid on 
+box on 
 
 
