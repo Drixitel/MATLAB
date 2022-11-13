@@ -364,10 +364,9 @@ for k=1:N
     xe(:,k+1) = xe(:,k) + delta*myODE(t(k),xe(:,k), FA); 
 end
 
-% New IC for Hover
+% New IC
 xe(2,end) = 0;
 
-% Append the matrix xe for each section
 for k=length(xe):N+length(xe)-1 
     % Time used for plotting the domain- not used in function
     t(k+1) = t(k) + delta;  
@@ -377,7 +376,6 @@ for k=length(xe):N+length(xe)-1
     xe(:,k+1) = xe(:,k) + delta*myODE(t(k),xe(:,k), FH); 
 end
 
-% IC is fine to take the values of xe 
 for k=length(xe):N+length(xe)-1 
     % Time used for plotting the domain- not used in function
     t(k+1) = t(k) + delta;  

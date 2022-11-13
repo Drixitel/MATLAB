@@ -1,17 +1,15 @@
-function dxdt = myODE(t,x)
-    % Parameters: 
-    %   t = array 
-    %   x = [ x1 ; x2 ] = [ x(t) ; vx(t) ] column vecotrs 
-
-    % Uncomment as needed: 
+function dxdt = myODE(t,x,F)
+    % Arguments: 
+    %   t = array, this is taken but not used
+    %   x = [ x1 ; x2 ] = [ z(t) ; vz(t) ] column vecotrs 
     
-    F = 1;      % net Force > 0 will  ascend 
-    %F = 0;      % net Force = 0 will hover
-    %F = -1;      % net Force <0 will desend 
-
+    % Global Parameters 
     m = 1;      % mass 
-    a_x = F/m;  % acceleration 
+    g = 9.81;   %m/s^2
 
-    dxdt = [x(2); a_x;]; % = [ vx(t) ; F/m ]
+    % 1D Parameters 
+    a_z = (1/m)*(4*F-g);  % acceleration 
     
+    % Return: 
+    dxdt = [x(2); a_z;]; % = [ vz(t) ; az(t) ]
 end

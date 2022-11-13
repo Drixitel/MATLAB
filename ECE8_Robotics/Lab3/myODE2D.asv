@@ -1,0 +1,20 @@
+%% myODE2D.m 
+function dxdt = myODE2D(t,x,Fy,Fz,M)
+    % Arguments: 
+    %   t = array, this is taken but not used
+    %   x = [ x1 ;    x2 ;  x3 ;    x4;    x5 ;      x6;] 
+    %     = [ y(t); vy(t); z(t); vz(t); phi(t); vphi(t);] 
+    
+    % Global Parameters 
+    m = 1;      % mass 
+    g = 9.81;   %m/s^2
+
+    % 2D Parameters 
+    a_y = (-1/m)*(4*Fy*sin(x(5)))
+
+    
+    % Return: 
+    %   dxdt = [dxdt1 ;  dxdt2; dxdt3 ;  dxdt4;  dxdt5 ; dxdt6;]
+    %        = [    x2;  ay(t);     x4;  az(t);  x 
+    dxdt = [x(2); a_z;]; 
+end

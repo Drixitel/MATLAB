@@ -93,17 +93,16 @@ FD = g/4 - 1;               % Desend
 %       The results are Matricies with 2 columns, so change it in plotting
 [t45A,xA] = ode45(@(t45A,xA) myODE(t45A,xA,FA), time_window1, i_c);
 
-% Update the IC to get the correct behavior 
+% IC's
 i_c2 = [xA(end,1); 0;];
 [t45H,xH] = ode45(@(t45H,xH) myODE(t45H,xH,FH), time_window2, i_c2);
 
-% Update the IC to get the correct behavior
+% IC's 
 i_c3 = xH(end,:);
 [t45D,xD] = ode45(@(t45D,xD) myODE(t45D,xD,FD), time_window3, i_c3);
 
-% Append all segments into one matrix 
-x = [xA ;xH ;xD;];
-t45AHD = [t45A; t45H; t45D;];
+x = [xA ;xH ;xD];
+t = [t45A; t45H]
 
 % Save to mat file to use in ode_sim_euler.m
-save ode45AHD x t45AHD
+save ode45AHD x t45
