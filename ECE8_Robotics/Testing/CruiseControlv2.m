@@ -6,8 +6,30 @@ clear all;
 Delta = 0.01; % step size
 b = 1/2; % friction
 m = 20; % mass
-vd = 80; % desired speed
+vd = 65; % desired speed
 T = 1000; % simulation horizon in seconds
+% Set Ustar
+K =1; % Proportional Gain
+ustar = -K*vd;
+
+% Check conditions of 1 and 2 from lect 15 
+% check condition 1: a!= 0
+% Calculate a
+%a = 1 - Delta *b /m; 
+%a == 0; % logical check to see if a is zero 
+% Condition 2 
+% compute |a| with abs 
+%abs(a) < 1; % logical check 
+% New a
+a = 1-Delta * b/m - Delta * K/ml;
+
+% Check both conditions at the same time 
+if (a~=1) && (abs(a)<1)
+    disp('Condition 1 and 2 are sat')
+else 
+    disp('Condition 1 and 2 are not sat')
+end
+
 
 % discrete number of steps to calculate the trajectory
 N = T/Delta;
@@ -15,7 +37,7 @@ N = T/Delta;
 % 1) define the initial condition (speed)
 
 % initial speed
-v0 = 10;
+v0 = 100;
 
 % 2) define the incline input only 
 % u = zeros(1,N);  % control speed --- we are creating this
@@ -51,13 +73,21 @@ for i = 1:N
     
     % calculate the trajectory for the model
     % v_k+1 = v_k + Delta (-b vk + hk + uk)/m
-    v(i+1) = v(i) + Delta * (-b * v(i) + h(i) + u(i))/m;
+    %v(i+1) = v(i) + Delta * (-b * v(i) + h(i) + u(i))/m;
+    %new K control: 
+        % v_k+1 = v_k + Delta (-b* vk + K*(vd-vk)+ustar)/m
+    v(i+1) = v(i) + Delta * (-b * v(i) *K * (vd-v(i))+ustar)/m; 
+
+    % old v no propotional control
+    %v(i+1) = v(i) + Delta * (-b * v(i) )/m;
+
     % populate discrete time vector
     k(i+1) = k(i) + 1;
 end
 
 % define ordinary time
 t = k*Delta;
+
 
 % plot vk as a function of k
 figure
