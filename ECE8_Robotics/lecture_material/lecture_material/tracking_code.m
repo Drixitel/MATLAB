@@ -28,6 +28,7 @@ if (ret_status == 0)
     altitude_star = 1;
     i = 0;
     k = 0;
+    
     while(sim.simxGetConnectionId(clientID) ~= -1)
         % Continuously obtain the position of the ground rover
         [~, rover_position] = getObjectPosition(sim, clientID, ground_rover, 0);
