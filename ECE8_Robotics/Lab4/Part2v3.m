@@ -143,24 +143,26 @@ if (ret_status == 0)
         %pause(0.15) % This delay will be computer dependent
         
     end
-    
+    % plot
+    positions = [p_x, p_y, p_z];
+    figure(1)
+    plot3(positions(:,1),positions(:,2),positions(:,3),'linewidth',3);
+    title('3D Quadrotor path from CoppeliaSim')
+    xlabel('x [m]')
+    ylabel('y [m]')
+    zlabel('z [m]')
+    saveas(gcf,'Part2Box_3d.png');
+    figure(2)
+    plot(positions(:,1),positions(:,3))
+    title('2D Quadrotor path from CoppeliaSim')
+    xlabel('x [m]')
+    ylabel('z [m]')
+    saveas(gcf,'Part2Box_2d.png');
+
     % Kill the connection to CopelliaSim
     uninitializeComm(sim, clientID)
     
 else
     disp('Unable to connect to CopelliaSim')
 end
-positions = [p_x, p_y, p_z];
-figure(1)
-plot3(positions(:,1),positions(:,2),positions(:,3),'linewidth',3);
-title('3D Quadrotor path from CoppeliaSim')
-xlabel('x [m]')
-ylabel('y [m]')
-zlabel('z [m]')
-saveas(gcf,'Part2_3d.png');
-figure(2)
-plot(positions(:,1),positions(:,3))
-title('2D Quadrotor path from CoppeliaSim')
-xlabel('x [m]')
-ylabel('z [m]')
-saveas(gcf,'Part2_2d.png');
+

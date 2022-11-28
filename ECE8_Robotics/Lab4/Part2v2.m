@@ -1,4 +1,4 @@
-% Clear the workspace
+%% Clear the workspace
 clc
 clear all
 close all
@@ -9,6 +9,7 @@ addpath("Api")
 
 % Make sure that initialization is succesful
 if (ret_status == 0)
+    % pull required objects from lect 13 code
     % Reference the 'Quadricopter' object in CoppeliaSim as 'Quad' in MATLAB
     [returnCode, Quad] = getObjectReference(sim, clientID, 'Quadricopter');
     % Reference the 'Quadcopter_target' object in CoppeliaSim as 'target' in MATLAB
@@ -73,25 +74,25 @@ if (ret_status == 0)
 
       
      end
+    % plot
+    positions = [p_x, p_y, p_z];
+    figure(1)
+    plot3(positions(:,1),positions(:,2),positions(:,3),'linewidth',3);
+    title('3D Quadrotor path from CoppeliaSim')
+    xlabel('x [m]')
+    ylabel('y [m]')
+    zlabel('z [m]')
+    saveas(gcf,'Part2_3d.png');
+    figure(2)
+    plot(positions(:,2),positions(:,3))
+    title('2D Quadrotor path from CoppeliaSim')
+    xlabel('y [m]')
+    ylabel('z [m]')
+    saveas(gcf,'Part2_2d.png');
 
-    
     % Kill the connection to CopelliaSim
     uninitializeComm(sim, clientID)
     
 else
     disp('Unable to connect to CopelliaSim')
 end
-positions = [p_x, p_y, p_z];
-figure(1)
-plot3(positions(:,1),positions(:,2),positions(:,3),'linewidth',3);
-title('3D Quadrotor path from CoppeliaSim')
-xlabel('x [m]')
-ylabel('y [m]')
-zlabel('z [m]')
-saveas(gcf,'Part2_3d.png');
-figure(2)
-plot(positions(:,2),positions(:,3))
-title('2D Quadrotor path from CoppeliaSim')
-xlabel('y [m]')
-ylabel('z [m]')
-saveas(gcf,'Part2_2d.png');

@@ -28,7 +28,7 @@ if (ret_status == 0)
     p_y = [];
     p_z = [];
     
-    T = 15; % How long you want to collect the data for
+    T = 12; % How long you want to collect the data for
     i = 0; j = 0; k = 1;
 
     while (currentTime-startTime < T)
@@ -70,8 +70,17 @@ if (ret_status == 0)
     ylabel('y [m]')
     zlabel('z [m]')
     saveas(gcf,'Part1Circle.png');
+    figure(2)
+    plot(positions(:,1),positions(:,2))
+    title('2D Quadrotor path from CoppeliaSim')
+    xlabel('x [m]')
+    ylabel('y [m]')
+    saveas(gcf,'Part1_2d.png');
+
+
     % Kill the connection to CopelliaSim
     uninitializeComm(sim, clientID)
+    
     
 else
     disp('Unable to connect to CopelliaSim')
