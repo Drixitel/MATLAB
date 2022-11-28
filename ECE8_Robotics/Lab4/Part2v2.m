@@ -61,7 +61,7 @@ if (ret_status == 0)
             targZinv =3;
         end
 
-        p_z_star = i/(i+1)*targZ + 1/(i+1)*targZinv;
+        p_z_star = 1/(i+1)*targZinv + i/(i+1)*targZ;
         position = [p_x_star,p_y_star,p_z_star];
         i = i + 0.1;
 
