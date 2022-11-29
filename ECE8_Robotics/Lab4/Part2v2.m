@@ -1,4 +1,4 @@
-%% Clear the workspace
+% Clear the workspace
 clc
 clear all
 close all
@@ -9,7 +9,8 @@ addpath("Api")
 
 % Make sure that initialization is succesful
 if (ret_status == 0)
-    % pull required objects from lect 13 code
+    % pull required variables from lect 13 code
+
     % Reference the 'Quadricopter' object in CoppeliaSim as 'Quad' in MATLAB
     [returnCode, Quad] = getObjectReference(sim, clientID, 'Quadricopter');
     % Reference the 'Quadcopter_target' object in CoppeliaSim as 'target' in MATLAB
@@ -35,12 +36,25 @@ if (ret_status == 0)
     k = 1;
     
     % Set a tolerance bc we can't get to targets without an overshoot
-    err = 0.1;
+    err = 0.08;
+
+    % Add some time 
+    % variables for time/ when to stop sim
+    T = 14; % How long you want to collect the data for
+
+    % for publish because it doesn't draw the figure with T=14
+    %T = 40;
+
+    % variables for time
+    t=clock;
+    startTime=t(6);
+    currentTime=t(6);
     
     % While sim is on
-     while(sim.simxGetConnectionId(clientID) ~= -1)
-        
-        %% Insert code here: 
+     while(currentTime-startTime < T)
+        % if the sim is running do this 
+        if(sim.simxGetConnectionId(clientID) ~= -1)
+        % Insert code here: 
         % remove the above example, and fly to (0,0,3) and then to (0,0,1)
 
         % Collect info on position
@@ -54,24 +68,28 @@ if (ret_status == 0)
         p_x_star = 0; 
         p_y_star = 0;
         
-        if(p_z<3-err)
-            targZ =3;
+        if(p_z<=3)
+            targZ =3+err;
             targZinv =1;
         else
-            targZ =1; 
+            targZ =1-err; 
             targZinv =3;
         end
 
         p_z_star = 1/(i+1)*targZinv + i/(i+1)*targZ;
         position = [p_x_star,p_y_star,p_z_star];
-        i = i + 0.1;
+        i = i + 0.001;
+
+        % Read current time
+        t = clock;
+        currentTime = t(6);
 
         % Send to target
         [returnCode] = setObjectPosition(sim, clientID, target, position);
+        
+        
 
-        pause(0.15)
-
-
+        end
       
      end
     % plot

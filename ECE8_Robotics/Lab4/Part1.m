@@ -12,7 +12,7 @@ addpath("Api");
 
 % Make sure that initialization is succesful
 if (ret_status == 0)
-
+    % Pull all variables from lect 13 code
     % Reference the 'Quadricopter' object in CoppeliaSim as 'Quad' in MATLAB
     [returnCode, Quad] = getObjectReference(sim, clientID, 'Quadricopter');
     % Return Quad's position as quad_pos
@@ -20,18 +20,25 @@ if (ret_status == 0)
     % Reference the 'Quadcopter_target' object in CoppeliaSim as 'target' in MATLAB
     [returnCode, target] = getObjectReference(sim, clientID, 'Quadricopter_target');
 
-
+    % variables for time/ when to stop sim
+    T = 12; % How long you want to collect the data for
     t=clock;
     startTime=t(6);
     currentTime=t(6);
+
+    % variables for position 
     p_x = [];
     p_y = [];
     p_z = [];
     
-    T = 12; % How long you want to collect the data for
-    i = 0; j = 0; k = 1;
+    % variables for counting 
+    i = 0; 
+    j = 0; 
+    k = 1;
 
+    % while we are in our time range run
     while (currentTime-startTime < T)
+        % if the sim is running do this 
         if(sim.simxGetConnectionId(clientID) ~= -1)
             %% Insert code here: record position
             
@@ -57,7 +64,6 @@ if (ret_status == 0)
             [returnCode] = setObjectPosition(sim, clientID, target, position);
              % Make sure to add some delay...
             pause(0.15) % This delay will be computer dependent
-            
         end
     end
     positions = [p_x, p_y, p_z];

@@ -34,6 +34,8 @@ if (ret_status == 0)
     i = 0;
     j = 0; 
     k = 1;
+
+    % seemed to need this, so they exist here first
     targX =0;
     targXinv =0;
     targZ =0;
@@ -42,10 +44,21 @@ if (ret_status == 0)
 
     % Set a tolerance bc we can't get to targets without an overshoot
     err = 0.25;
-    % While sim is on
-    while(sim.simxGetConnectionId(clientID) ~= -1)
 
-        %% Insert code here: 
+    % Add some time 
+    % variables for time/ when to stop sim
+    T = 25; % How long you want to collect the data for
+    
+    t=clock;
+    startTime=t(6);
+    currentTime=t(6);
+
+    % While sim is on
+    while(currentTime-startTime < T)
+        % if the sim is running do this 
+        if(sim.simxGetConnectionId(clientID) ~= -1)
+
+        % Insert code here: 
         % Collect info on position
         [returnCode, quad_pos] = getObjectPosition(sim, clientID, Quad, 0);
         p_x = [p_x; quad_pos(1)];
@@ -88,6 +101,11 @@ if (ret_status == 0)
         elseif( quad_pos(1) < 0 && quad_pos(3) > 1 )
                 p_x_star = 0; 
                 p_z_star = 1; 
+
+                % Read current time
+                t = clock;
+                currentTime = t(6);
+
                 position = [p_x_star,p_y_star,p_z_star];
                 [returnCode] = setObjectPosition(sim, clientID, target, position);
                 pause(1)
@@ -98,9 +116,11 @@ if (ret_status == 0)
                 % j = j + 0.0001;
         end 
         
+        % Read current time
+        t = clock;
+        currentTime = t(6);
 
-        % p_x_star = i/(i+1)*targX + 1/(i+1)*targXinv;
-        % p_z_star = i/(i+1)*targZ + 1/(i+1)*targZinv;
+        % send to target
         position = [p_x_star,p_y_star,p_z_star];
         [returnCode] = setObjectPosition(sim, clientID, target, position);
         %-------------------------------------------------------------------------
@@ -136,12 +156,7 @@ if (ret_status == 0)
 
         % pause(10)
 
-        
-
-
-        % Make sure to add some delay...
-        %pause(0.15) % This delay will be computer dependent
-        
+        end
     end
     % plot
     positions = [p_x, p_y, p_z];
