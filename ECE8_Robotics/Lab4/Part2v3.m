@@ -47,11 +47,12 @@ if (ret_status == 0)
 
     % Add some time 
     % variables for time/ when to stop sim
-    T = 25; % How long you want to collect the data for
+    T = 35; % How long you want to collect the data for
     
     t=clock;
     startTime=t(6);
     currentTime=t(6);
+ 
 
     % While sim is on
     while(currentTime-startTime < T)
@@ -89,8 +90,8 @@ if (ret_status == 0)
                 targZ    = 2+err;
                 targZinv = 1; 
                 p_x_star = 1;
-                p_z_star = i/(i+1)*targZ + 1/(i+1)*targZinv;
-                i = i + 0.0001;
+                p_z_star = k/(i+1)*targZ + 1/(k+1)*targZinv;
+                k = k + 0.0001;
         elseif(quad_pos(1) > 0 && quad_pos(3) >= 2)
                 targX    = 0-err+0.01; 
                 targXinv = 1; 
@@ -100,22 +101,22 @@ if (ret_status == 0)
                 % (0-0.25,  0,  2)
         elseif( quad_pos(1) < 0 && quad_pos(3) > 1 )
                 p_x_star = 0; 
-                p_z_star = 1; 
-
+                p_z_star = 1-err; 
+              
                 % Read current time
                 t = clock;
                 currentTime = t(6);
-
+                % final send for 1 square
                 position = [p_x_star,p_y_star,p_z_star];
                 [returnCode] = setObjectPosition(sim, clientID, target, position);
                 pause(1)
-                % targZ    = 1;
-                % targZinv = 2;
-                % p_x_star = 0;
-                % p_z_star = j/(j+1)*targZ + 1/(j+1)*targZinv;
-                % j = j + 0.0001;
+                % reset to remove accidental KICK to the system
+                i=0;
+                j=0;
+                k=0;
+       
         end 
-        
+
         % Read current time
         t = clock;
         currentTime = t(6);
