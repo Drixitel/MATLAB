@@ -10,5 +10,5 @@
 
 - ECE8_Robotics
   - Contians MATLAB scripts and labs
-  - Each lab contains a published pdf with prompt and images
+  - Each lab contains a published pdf with prompt and images - see `html` directory
   - Lab 4 contains code for CooppeliaSim simulations of a quadcopter
