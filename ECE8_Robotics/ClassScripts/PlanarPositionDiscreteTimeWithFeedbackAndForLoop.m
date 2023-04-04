@@ -1,10 +1,11 @@
-% ECE 8 Lecture 9 -- Calculate position trajectory of the brick using a discrete-time
+% ECE 8 Lecture 9 
+% Calculate position trajectory of the brick using a discrete-time
 % model for any given number of discrete steps
 close all;
 clear all;
 
 % discrete number of steps to calculate the trajectory
-N = 200;
+N = 500;        % Adjust to see path shrink and grow to read desired
 
 % define desired position
 pxd = 1;
@@ -21,31 +22,34 @@ py0 = 0;
 % define vx and vy using the error between the desired position
 % and the current position. We do this in the for loop below.
 
-% 3) define the planar model (in this case
-%
+% 3) define the planar model (in this case)
 % px_k+1 = px_k + Delta * vx_k
 % py_k+1 = py_k + Delta * vy_k
-%
+
 %  step size (in seconds)
 Delta = 0.01;
-% )
+
 px = px0; % initialize my trajectory at px0
 py = py0; % initialize my trajectory at py0
 k = 0; % initialize discrete time vector
 for i = 1:N
     % calculate the error signal 
-    % in the x direction
-    ex = pxd - px(i); % desired x position minus current x position
-    % in the y direction
-    ey = pyd - py(i); % desired y position minus current y position
-    % next, we define the velocity inputs as follows:
+    % In the x direction
+    ex = pxd - px(i);       % desired x position minus current x position
+
+    % In the y direction
+    ey = pyd - py(i);       % desired y position minus current y position
+
+    % Next, we define the velocity inputs as follows:
     vx(i) = ex;
     vy(i) = ey;
+
     % calculate the trajectory for the model
     % px_k+1 = px_k + Delta * vx_k
     px(i+1) = px(i) + Delta * vx(i);
     % py_k+1 = py_k + Delta * vy_k
     py(i+1) = py(i) + Delta * vy(i);
+
     % populate discrete time vector
     k(i+1) = k(i) + 1;
 end

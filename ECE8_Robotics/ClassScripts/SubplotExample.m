@@ -1,3 +1,4 @@
+% Subplot Example 
 close all
 clear all
 subplot(2,2,1);

@@ -1,4 +1,5 @@
-% ECE 8 Lecture 7 -- Calculate position trajectory of the brick using a discrete-time
+% ECE 8 Lecture 7 
+% Calculate position trajectory of the brick using a discrete-time
 % model for any given number of discrete steps
 close all;
 clear all;
@@ -13,6 +14,8 @@ px0 = 1;
 py0 = 0;
 
 % 2) define the input (velocity)
+
+% Simiple if statement case--------------------------------------------
 % vx defined as a constant equal to 1
 % vx = ones(1,N); 
 % vx defined as a step signal that is equal to 1 up to (and including) k =
@@ -29,13 +32,17 @@ py0 = 0;
 %       k(i+1) = k(i) + 1;
 %     end
 % end
+% ------------------------------------------------------------------------
+
 
 % vx defined as a step signal that is equal to 1 up to (and including) k =
 % 49, and after that is equal to 0 but until 70, and after that is back to
 % 1
+
 k = 0;
+% condition for if would be true if i < 50 OR (which is coded as ||) i > 70
 for i = 1:N
-    if (i < 50) || (i > 70) % condition for if would be true if i < 50 OR (which is coded as ||) i > 70
+    if (i < 50) || (i > 70) 
         vx(i) = 1;
     else
         vx(i) = 0;        
@@ -65,14 +72,14 @@ ylabel('vy')
 title('Velocity input in y direction vs discrete time k')
 
 
-% 3) define the planar model (in this case
-%
+% 3) define the planar model (in this case)
+
 % px_k+1 = px_k + Delta * vx_k
 % py_k+1 = py_k + Delta * vy_k
-%
+
 %  step size (in seconds)
 Delta = 0.01;
-% )
+
 px = px0; % initialize my trajectory at px0
 py = py0; % initialize my trajectory at py0
 k = 0; % initialize discrete time vector

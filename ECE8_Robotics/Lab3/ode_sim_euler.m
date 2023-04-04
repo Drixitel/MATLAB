@@ -1,8 +1,12 @@
-%% Exercise: Test 
+%% Full Report 
 % clears all variables from previous executions of scripts
 clear all;
 close all; 
 
+%% Test Case 
+% clears all variables from previous executions of scripts
+clear all;
+close all; 
 
 % Initial time
 t_0 = 0;
@@ -26,6 +30,9 @@ delta = (horizon)/N; % Time step = Horizton /number of steps
 t(1) = t_0;
 
 % Initialize x = [z(t) ; v_z(t)] : Matrix of 2 row vectors
+% where x is meant to represent a position matrix containing
+
+% z positon and z velocity initial condition assignment 
 x(:,1) = i_c;
 
 % Set the force
@@ -36,7 +43,6 @@ for k=1:N
 
     % Updates our time t according to the step size delta
     % Used for plotting, not used in the ODE, however the manual has it 
-    %       Set as a parameter ?
     t(k+1) = t(k) + delta; % Row vector 
     
     % Calls the function f(t,x) = dx/dt
@@ -45,17 +51,19 @@ for k=1:N
 end
 
 % Plots of our simulation
-figure(1);
-plot(t,x(1,:));
-xlabel('Time t');
-ylabel('z');
+figure(1)
+plot(t,x(1,:))
+xlabel('Time t')
+ylabel('z')
 legend('z')
+title('Test z-Position')
 
-figure(2);
-plot(t,x(2,:));
-xlabel('Time t');
+figure(2)
+plot(t,x(2,:))
+xlabel('Time t')
 ylabel('v_z');
 legend('v_z')
+title('Test z-Velocity')
 
 %% Exercise 1
 % Modify myODE(): done, takes F inputs
@@ -66,7 +74,7 @@ legend('v_z')
 %       Include: Title, Legend, axis labels, submit myODE seperately 
 % Detailed Comments are in the Test Case above
 
-% Best Practices ----------------------------------------------
+% Best Practices 
 clear all;
 close all; 
 
@@ -105,6 +113,7 @@ FA = g/4 + 1;               % Ascend
 FH = g/4;                   % Hover
 FD = g/4 - 1;               % Desend
 
+% Calculations from myODE function 
 % For loop: sets next (t,x) = (t,(z,vz)) values 
 for k=1:N 
     % Time used for plotting the domain- not used in function
@@ -119,6 +128,7 @@ for k=1:N
     xDe(:,k+1) = xDe(:,k) + delta*myODE(t(k),xDe(:,k), FD); 
 end
 
+% Data from ode45 file 
 % Load Variables from ode_sim_ode45.m
 load("ode45Data.mat","xA","xH","xD","t45")
 
